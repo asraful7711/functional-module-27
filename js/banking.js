@@ -18,16 +18,16 @@ function addTotalFeild(totalId,Amount){
     totalFeild.innerText = newTotal
     
 }
-function updateBalance( newDepositeAmount ,isAdd){
+function updateBalance( amount ,isAdd){
      // update account balance 
      const balanceTotal = document.getElementById('balance-total')
      const BalanceTotalText = balanceTotal.innerText
      const previousBalanceTotal = parseFloat(BalanceTotalText)
     if(isAdd == true){
-     const newBalanceTotal = previousBalanceTotal + newDepositeAmount
+     const newBalanceTotal = previousBalanceTotal + amount
      balanceTotal.innerText = newBalanceTotal}
    else{
-    const newBalanceTotal = previousBalanceTotal + newDepositeAmount
+    const newBalanceTotal = previousBalanceTotal - amount
     balanceTotal.innerText = newBalanceTotal
    }
 }
@@ -37,7 +37,7 @@ function updateBalance( newDepositeAmount ,isAdd){
 
 document.getElementById('deposit-button').addEventListener('click' , function(){
     const newDepositeAmount = getInputValue('deposit-input');
-    
+
     addTotalFeild('deposit-total',newDepositeAmount);
 
     updateBalance( newDepositeAmount,true)
