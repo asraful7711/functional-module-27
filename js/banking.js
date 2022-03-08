@@ -18,11 +18,17 @@ function addTotalFeild(totalId,Amount){
     totalFeild.innerText = newTotal
     
 }
-function updateBalance( amount ,isAdd){
-     // update account balance 
-     const balanceTotal = document.getElementById('balance-total')
+function getCurrentBalance(){
+    const balanceTotal = document.getElementById('balance-total')
      const BalanceTotalText = balanceTotal.innerText
      const previousBalanceTotal = parseFloat(BalanceTotalText)
+     return previousBalanceTotal;
+}
+function updateBalance( amount ,isAdd){
+     // update account balance 
+
+     const balanceTotal = document.getElementById('balance-total')
+    const previousBalanceTotal = getCurrentBalance();
     if(isAdd == true){
      const newBalanceTotal = previousBalanceTotal + amount
      balanceTotal.innerText = newBalanceTotal}
@@ -36,11 +42,15 @@ function updateBalance( amount ,isAdd){
 // handle deposite button 
 
 document.getElementById('deposit-button').addEventListener('click' , function(){
-    const newDepositeAmount = getInputValue('deposit-input');
 
-    addTotalFeild('deposit-total',newDepositeAmount);
 
-    updateBalance( newDepositeAmount,true)
+    const DepositeAmount = getInputValue('deposit-input');
+
+    if (DepositeAmount > 0){
+        addTotalFeild('deposit-total',DepositeAmount);
+
+        updateBalance( DepositeAmount,true)
+    }
 
 })
 
@@ -48,10 +58,16 @@ document.getElementById('deposit-button').addEventListener('click' , function(){
 
 document.getElementById('withdraw-button').addEventListener('click', function(){
 
-    const newWithdrawAmount = getInputValue('withdraw-input');
+    const WithdrawAmount = getInputValue('withdraw-input');
+    const  currentBalance = getCurrentBalance()
 
-    addTotalFeild('withdraw-total',newWithdrawAmount);
+    if(WithdrawAmount > 0 && WithdrawAmount < currentBalance){
+        addTotalFeild('withdraw-total',WithdrawAmount);
 
-    updateBalance(  newWithdrawAmount ,false)
+        updateBalance(  WithdrawAmount ,false)
+    }
+    if( WithdrawAmount > currentBalance){
+        document.getElementById('withdraw-alert').style.display = 'block'
+    }
 
 })
