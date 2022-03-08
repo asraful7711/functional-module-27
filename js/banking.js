@@ -69,5 +69,7 @@ document.getElementById('withdraw-button').addEventListener('click', function(){
     if( WithdrawAmount > currentBalance){
         document.getElementById('withdraw-alert').style.display = 'block'
     }
-
+    if( WithdrawAmount < currentBalance ){
+        document.getElementById('withdraw-alert').style.display = 'none'
+    }
 })
